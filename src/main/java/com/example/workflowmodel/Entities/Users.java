@@ -1,8 +1,6 @@
 package com.example.workflowmodel.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -10,14 +8,19 @@ import java.util.List;
 public class Users {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uid;
 
     private String name;
 
     private String role;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "authorised")
     private List<Tasks> tid;
+
+
+
+
 
     public Users() {
     }

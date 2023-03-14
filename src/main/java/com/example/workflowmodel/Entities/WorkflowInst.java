@@ -1,13 +1,11 @@
 package com.example.workflowmodel.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class WorkflowInst {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int wfid;
 
     private Boolean status;
@@ -15,7 +13,5 @@ public class WorkflowInst {
     private String description;
 
     @ManyToOne
-    Workflow wid;
-
-
+    private Workflow wid;
 }

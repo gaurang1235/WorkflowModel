@@ -8,6 +8,7 @@ import java.util.List;
 public class Tasks {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tid;
 
     private String description;
@@ -20,6 +21,9 @@ public class Tasks {
 
     @ManyToOne
     private Workflow wid;
+
+
+
 
 
     public Tasks() {

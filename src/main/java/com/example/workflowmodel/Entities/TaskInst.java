@@ -1,15 +1,13 @@
 package com.example.workflowmodel.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 public class TaskInst {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tinst_id;
 
     private String comments;

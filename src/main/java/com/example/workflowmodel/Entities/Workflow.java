@@ -1,18 +1,21 @@
 package com.example.workflowmodel.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 public class Workflow {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int wid;
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "wid")
     private List<Tasks> ltids;
+
+
+
+
 
     public Workflow() {
     }
@@ -38,6 +41,7 @@ public class Workflow {
     public void setName(String name) {
         this.name = name;
     }
+
 
     public List<Tasks> getLtids() {
         return ltids;
