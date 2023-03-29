@@ -16,17 +16,20 @@ public class TaskInst {
     private List<Users> performedBy;
 
     @ManyToOne
-    private WorkflowInst wfid;
+    private WorkflowInst workflowInstId;
 
+    @ManyToOne
+    private Tasks taskId;
 
     public TaskInst() {
     }
 
-    public TaskInst(int tinst_id, String comments, List<Users> performedBy, WorkflowInst wfid) {
+    public TaskInst(int tinst_id, String comments, List<Users> performedBy, WorkflowInst workflowInstId, Tasks taskId) {
         this.tinst_id = tinst_id;
         this.comments = comments;
         this.performedBy = performedBy;
-        this.wfid = wfid;
+        this.workflowInstId = workflowInstId;
+        this.taskId = taskId;
     }
 
     public int getTinst_id() {
@@ -53,12 +56,20 @@ public class TaskInst {
         this.performedBy = performedBy;
     }
 
-    public WorkflowInst getWfid() {
-        return wfid;
+    public WorkflowInst getWorkflowInstId() {
+        return workflowInstId;
     }
 
-    public void setWfid(WorkflowInst wfid) {
-        this.wfid = wfid;
+    public void setWorkflowInstId(WorkflowInst workflowInstId) {
+        this.workflowInstId = workflowInstId;
+    }
+
+    public Tasks getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Tasks taskId) {
+        this.taskId = taskId;
     }
 
     @Override
@@ -67,7 +78,8 @@ public class TaskInst {
                 "tinst_id=" + tinst_id +
                 ", comments='" + comments + '\'' +
                 ", performedBy=" + performedBy +
-                ", wfid=" + wfid +
+                ", workflowInstId=" + workflowInstId +
+                ", taskId=" + taskId +
                 '}';
     }
 }

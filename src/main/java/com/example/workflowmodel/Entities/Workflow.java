@@ -11,19 +11,20 @@ public class Workflow {
     private int wid;
     private String name;
     @OneToMany(mappedBy = "wid")
-    private List<Tasks> ltids;
+    private List<Tasks> tasksList;
 
-
-
+    @OneToMany(mappedBy = "associated_wid")
+    private List<WorkflowInst> workflowInstList;
 
 
     public Workflow() {
     }
 
-    public Workflow(int wid, String name, List<Tasks> ltids) {
+    public Workflow(int wid, String name, List<Tasks> tasksList, List<WorkflowInst> workflowInstList) {
         this.wid = wid;
         this.name = name;
-        this.ltids = ltids;
+        this.tasksList = tasksList;
+        this.workflowInstList = workflowInstList;
     }
 
     public int getWid() {
@@ -42,22 +43,29 @@ public class Workflow {
         this.name = name;
     }
 
-
-    public List<Tasks> getLtids() {
-        return ltids;
+    public List<Tasks> getTasksList() {
+        return tasksList;
     }
 
-    public void setLtids(List<Tasks> ltids) {
-        this.ltids = ltids;
+    public void setTasksList(List<Tasks> tasksList) {
+        this.tasksList = tasksList;
     }
 
+    public List<WorkflowInst> getWorkflowInstList() {
+        return workflowInstList;
+    }
+
+    public void setWorkflowInstList(List<WorkflowInst> workflowInstList) {
+        this.workflowInstList = workflowInstList;
+    }
 
     @Override
     public String toString() {
         return "Workflow{" +
                 "wid=" + wid +
                 ", name='" + name + '\'' +
-                ", ltids=" + ltids +
+                ", tasksList=" + tasksList +
+                ", workflowInstList=" + workflowInstList +
                 '}';
     }
 }

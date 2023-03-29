@@ -16,22 +16,23 @@ public class Users {
     private String role;
 
     @ManyToMany(mappedBy = "authorised")
-    private List<Tasks> tid;
+    private List<Tasks> tasksList;
 
 
-
+    @ManyToMany(mappedBy = "performedBy")
+    private List<TaskInst> taskInstList;
 
 
     public Users() {
     }
 
-    public Users(int uid, String name, String role, List<Tasks> tid) {
+    public Users(int uid, String name, String role, List<Tasks> tasksList, List<TaskInst> taskInstList) {
         this.uid = uid;
         this.name = name;
         this.role = role;
-        this.tid = tid;
+        this.tasksList = tasksList;
+        this.taskInstList = taskInstList;
     }
-
 
     public int getUid() {
         return uid;
@@ -57,14 +58,21 @@ public class Users {
         this.role = role;
     }
 
-    public List<Tasks> getTid() {
-        return tid;
+    public List<Tasks> getTasksList() {
+        return tasksList;
     }
 
-    public void setTid(List<Tasks> tid) {
-        this.tid = tid;
+    public void setTasksList(List<Tasks> tasksList) {
+        this.tasksList = tasksList;
     }
 
+    public List<TaskInst> getTaskInstList() {
+        return taskInstList;
+    }
+
+    public void setTaskInstList(List<TaskInst> taskInstList) {
+        this.taskInstList = taskInstList;
+    }
 
     @Override
     public String toString() {
@@ -72,7 +80,8 @@ public class Users {
                 "uid=" + uid +
                 ", name='" + name + '\'' +
                 ", role='" + role + '\'' +
-                ", tid=" + tid +
+                ", tasksList=" + tasksList +
+                ", taskInstList=" + taskInstList +
                 '}';
     }
 }
