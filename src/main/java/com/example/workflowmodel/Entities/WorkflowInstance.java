@@ -5,30 +5,19 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Tasks {
-
+public class WorkflowInstance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int taskId;
+    private int workflowInstanceId;
+
+    private String status;
 
     private String description;
 
     @ManyToOne
     private Workflow workflow;
 
-
-    @ManyToOne
-    private Users userAuthorized;
-
-    private String role;
-
-    @OneToOne(mappedBy = "nextTask")
-    private Actions prevAction;
-
-    @OneToMany(mappedBy = "task")
-    private List<Actions> actionsList;
-
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "workflowInstance")
     private List<TaskInstance> taskInstanceList;
 
 }
