@@ -1,5 +1,6 @@
 package com.example.workflowmodel.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,12 +24,15 @@ public class Task {
     private String role;
 
     @OneToOne(mappedBy = "nextTask")
+    @JsonIgnore
     private Action prevAction;
 
     @OneToMany(mappedBy = "task")
+    @JsonIgnore
     private List<Action> actionsList;
 
     @OneToMany(mappedBy = "task")
+    @JsonIgnore
     private List<TaskInstance> taskInstanceList;
 
 

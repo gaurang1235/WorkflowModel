@@ -1,11 +1,15 @@
 package com.example.workflowmodel.Services;
 
 import com.example.workflowmodel.DAO.TaskDao;
+import com.example.workflowmodel.DAO.UserDao;
+import com.example.workflowmodel.DAO.WorkflowDao;
 import com.example.workflowmodel.Entities.Task;
 import com.example.workflowmodel.Entities.User;
 import com.example.workflowmodel.Entities.Workflow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TaskService {
@@ -14,14 +18,16 @@ public class TaskService {
     private TaskDao taskDao;
 
     @Autowired
-    private WorkflowService workflowService;
+    private WorkflowDao workflowDao;
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
+
 
     public Task addTaskUsingRole(String description, int workflowId, String role){
+
         try{
-            Workflow workflow = workflowService.loadWorkflow(workflowId);
+            Workflow workflow = workflowDao.findByWorkflowId(workflowId);
 
             if(workflow==null){
                 System.out.printf("Workflow Not found");
@@ -38,19 +44,16 @@ public class TaskService {
 
             return task;
         }catch (Exception e){
+            System.out.println("Task adding using role error");
             throw new RuntimeException();
         }
     }
 
     public Task addTaskUsingUser(String description, int workflowId, int userId){
-        try{
-            Workflow workflow = workflowService.loadWorkflow(workflowId);
-            User user = userService.findUser(userId);
 
-            if(workflow==null || user==null){
-                System.out.printf("Workflow Not found");
-                return null;
-            }
+        try{
+            Workflow workflow = workflowDao.findByWorkflowId(workflowId);
+            User user = userDao.findByUserId(userId);
 
             Task task = new Task();
 
@@ -62,6 +65,47 @@ public class TaskService {
 
             return task;
         }catch (Exception e){
+            System.out.println("adding task using user error");
+            throw new RuntimeException();
+        }
+    }
+
+
+    public Task getSingleTask(int taskId){
+        Task task;
+
+        try{
+            task = taskDao.findByTaskId(taskId);
+
+            return task;
+        }catch (Exception e){
+            System.out.println("get single task error");
+            throw new RuntimeException();
+        }
+    }
+
+
+    public List<Task> findAllFirstTasks(){
+        try{
+            List<Task> taskList = taskDao.findAllByPrevActionIsNull();
+
+            return taskList;
+        }catch (Exception e){
+            System.out.println("searching first all tasks error");
+            throw new RuntimeException();
+        }
+    }
+
+    public List<Task> fetchAllTaskForWorkflow(int workflowId){
+
+        try{
+            Workflow workflow = workflowDao.findByWorkflowId(workflowId);
+
+            List<Task> taskList = workflow.getTasksList();
+
+            return taskList;
+        }catch (Exception e){
+            System.out.println("fetching all tasks for workflow error");
             throw new RuntimeException();
         }
     }

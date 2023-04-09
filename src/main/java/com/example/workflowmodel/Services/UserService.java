@@ -17,6 +17,7 @@ public class UserService {
         try {
              user = userDao.findByUserId(userId);
         }catch (Exception e){
+            System.out.println("searching user error");
             throw new RuntimeException();
         }
 

@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface TaskDao extends JpaRepository<Task, Integer> {
 
-    //public List<Task> findByWorkflow(Workflow workflow);
+    public List<Task> findByWorkflow(Workflow workflow);
+
+    public Task findByTaskId(int taskId);
+
+    public List<Task> findAllByPrevActionIsNull();
 
 }

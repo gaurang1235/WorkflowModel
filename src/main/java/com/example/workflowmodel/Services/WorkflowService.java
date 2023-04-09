@@ -1,15 +1,28 @@
 package com.example.workflowmodel.Services;
 
+import com.example.workflowmodel.DAO.TaskDao;
+import com.example.workflowmodel.DAO.UserDao;
 import com.example.workflowmodel.DAO.WorkflowDao;
+import com.example.workflowmodel.Entities.Task;
+import com.example.workflowmodel.Entities.User;
 import com.example.workflowmodel.Entities.Workflow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class WorkflowService {
 
     @Autowired
     private WorkflowDao workflowDao;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private TaskDao taskDao;
 
 
     public Workflow createWorkflow(String name){
@@ -20,6 +33,7 @@ public class WorkflowService {
         try{
             workflow = workflowDao.save(workflow);
         }catch (Exception e){
+            System.out.println("creating workflow error");
             throw new RuntimeException();
         }
 
@@ -31,10 +45,31 @@ public class WorkflowService {
         try {
             workflow = workflowDao.findByWorkflowId(id);
         }catch (Exception e){
+            System.out.println("Workflow search error");
             throw new RuntimeException();
         }
 
         return workflow;
+    }
+
+
+    public List<Workflow> findAllWorkflowForUser(int userId){
+
+        try{
+            User user = userDao.findByUserId(userId);
+
+            List<Task> firstTasks = taskDao.findAllByPrevActionIsNull();
+
+            List<Workflow> workflowList = new ArrayList<>();
+
+            firstTasks.forEach(firstTask->{if(firstTasks.get(0).getRole().equals(user.getRole()) || firstTask.getUserAuthorized().equals(user)) workflowList.add(firstTask.getWorkflow());});
+
+
+            return workflowList;
+        }catch (Exception e){
+            System.out.println("finding workflow for user error");
+            throw new RuntimeException();
+        }
     }
 
 

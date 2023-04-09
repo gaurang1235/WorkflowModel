@@ -1,5 +1,6 @@
 package com.example.workflowmodel.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class WorkflowInstance {
     private Workflow workflow;
 
     @OneToMany(mappedBy = "workflowInstance")
+    @JsonIgnore
     private List<TaskInstance> taskInstanceList;
 
     public WorkflowInstance() {
