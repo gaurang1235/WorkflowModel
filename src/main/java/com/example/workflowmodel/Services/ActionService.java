@@ -7,6 +7,8 @@ import com.example.workflowmodel.Entities.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ActionService {
 
@@ -39,4 +41,16 @@ public class ActionService {
     }
 
 
+    public List<Action> viewActions(int taskId) {
+        try {
+            Task task = taskDao.findByTaskId(taskId);
+
+            List<Action> actionList = actionDao.findAllByTask(task);
+
+            return actionList;
+        }catch (Exception e){
+            System.out.println("Viewing action error");
+            throw new RuntimeException();
+        }
+    }
 }

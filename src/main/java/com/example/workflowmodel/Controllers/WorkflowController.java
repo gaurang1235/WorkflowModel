@@ -2,6 +2,7 @@ package com.example.workflowmodel.Controllers;
 
 import com.example.workflowmodel.Entities.Workflow;
 import com.example.workflowmodel.Services.WorkflowService;
+import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,17 @@ public class WorkflowController {
 
         try{
             workflowList = workflowService.findAllWorkflowForUser(userId);
+
+            return ResponseEntity.of(Optional.of(workflowList));
+        }catch (Exception e){
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/viewAllWorkflow")
+    public ResponseEntity<List<Workflow>> getAllWorkflows(){
+        try{
+            List<Workflow> workflowList = workflowService.getAllWorkflows();
 
             return ResponseEntity.of(Optional.of(workflowList));
         }catch (Exception e){

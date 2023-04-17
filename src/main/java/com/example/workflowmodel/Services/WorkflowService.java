@@ -73,5 +73,15 @@ public class WorkflowService {
     }
 
 
+    public List<Workflow> getAllWorkflows() {
+        try {
+            List<Workflow> workflowList = workflowDao.findAll();
 
+            return workflowList;
+        }catch (Exception e){
+            System.out.println("All workflow get failed");
+
+            throw new RuntimeException();
+        }
+    }
 }
