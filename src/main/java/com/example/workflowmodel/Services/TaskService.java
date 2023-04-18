@@ -55,6 +55,11 @@ public class TaskService {
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
             User user = userDao.findByUserId(userId);
 
+            if(user==null){
+                System.out.println("User not available");
+                throw new RuntimeException();
+            }
+
             Task task = new Task();
 
             task.setDescription(description);

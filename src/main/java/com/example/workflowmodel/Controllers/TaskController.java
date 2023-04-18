@@ -29,7 +29,7 @@ public class TaskController {
     }
 
     @PostMapping("/addTaskUsingUser/{workflowId}")
-    public ResponseEntity<Task> addTaskUsingUser(@RequestParam("description") String description, @PathVariable("workflowId") int workflowId, @RequestParam("userId") int userId){
+    public ResponseEntity<Task> addTaskUsingUser(@RequestParam("description") String description, @PathVariable int workflowId, @RequestParam("userId") int userId){
         Task task;
 
         try{
