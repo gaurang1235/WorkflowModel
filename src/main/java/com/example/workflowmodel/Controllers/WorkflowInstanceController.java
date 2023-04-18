@@ -1,6 +1,8 @@
 package com.example.workflowmodel.Controllers;
 
+import com.example.workflowmodel.Entities.TaskInstance;
 import com.example.workflowmodel.Entities.WorkflowInstance;
+import com.example.workflowmodel.Services.TaskInstanceService;
 import com.example.workflowmodel.Services.WorkflowInstanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,15 @@ public class WorkflowInstanceController {
     @Autowired
     private WorkflowInstanceService workflowInstanceService;
 
-    @PostMapping("/addWorkflowInstance/{workflowId}")
-    public ResponseEntity<WorkflowInstance> addWorkflow(@PathVariable int workflowId, @RequestParam("description") String description){
+    @Autowired
+    private TaskInstanceService taskInstanceService;
+
+    @PostMapping("/addWorkflowInstance/{userId}/{workflowId}")
+    public ResponseEntity<WorkflowInstance> addWorkflow(@PathVariable int userId, @PathVariable int workflowId, @RequestParam("description") String description){
         try{
-            WorkflowInstance workflowInstance = workflowInstanceService.addWorkflowInstance(workflowId, description);
+            WorkflowInstance workflowInstance = workflowInstanceService.addWorkflowInstance(workflowId, description, userId);
+
+            TaskInstance taskInstance = taskInstanceService.addFirstTaskInstance(workflowInstance.getWorkflowInstanceId());
 
             return ResponseEntity.of(Optional.of(workflowInstance));
         }catch (Exception e){

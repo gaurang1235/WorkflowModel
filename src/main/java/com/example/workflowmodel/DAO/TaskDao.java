@@ -14,4 +14,6 @@ public interface TaskDao extends JpaRepository<Task, Integer> {
 
     public List<Task> findAllByPrevActionIsNull();
 
+    public Task findByPrevActionIsNullAndWorkflow(Workflow workflow);
+
 }

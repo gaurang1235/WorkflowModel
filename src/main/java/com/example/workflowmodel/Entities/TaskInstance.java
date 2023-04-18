@@ -14,10 +14,12 @@ public class TaskInstance {
 
     private String attachments;
 
+    private Boolean anyAll;
+
     private String status;
 
-    @ManyToMany
-    private List<User> performedBy;
+    @OneToMany(mappedBy = "taskInstance", cascade = CascadeType.ALL)
+    private List<TaskInstancePerformedBy> taskInstancePerformedByList;
 
     @ManyToOne
     private WorkflowInstance workflowInstance;
@@ -29,12 +31,13 @@ public class TaskInstance {
     public TaskInstance() {
     }
 
-    public TaskInstance(int taskInstanceId, String comments, String attachments, String status, List<User> performedBy, WorkflowInstance workflowInstance, Task task) {
+    public TaskInstance(int taskInstanceId, String comments, String attachments, Boolean anyAll, String status, List<TaskInstancePerformedBy> taskInstancePerformedByList, WorkflowInstance workflowInstance, Task task) {
         this.taskInstanceId = taskInstanceId;
         this.comments = comments;
         this.attachments = attachments;
+        this.anyAll = anyAll;
         this.status = status;
-        this.performedBy = performedBy;
+        this.taskInstancePerformedByList = taskInstancePerformedByList;
         this.workflowInstance = workflowInstance;
         this.task = task;
     }
@@ -63,6 +66,14 @@ public class TaskInstance {
         this.attachments = attachments;
     }
 
+    public Boolean getAnyAll() {
+        return anyAll;
+    }
+
+    public void setAnyAll(Boolean anyAll) {
+        this.anyAll = anyAll;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -71,12 +82,12 @@ public class TaskInstance {
         this.status = status;
     }
 
-    public List<User> getPerformedBy() {
-        return performedBy;
+    public List<TaskInstancePerformedBy> getTaskInstancePerformedByList() {
+        return taskInstancePerformedByList;
     }
 
-    public void setPerformedBy(List<User> performedBy) {
-        this.performedBy = performedBy;
+    public void setTaskInstancePerformedByList(List<TaskInstancePerformedBy> taskInstancePerformedByList) {
+        this.taskInstancePerformedByList = taskInstancePerformedByList;
     }
 
     public WorkflowInstance getWorkflowInstance() {
@@ -93,18 +104,5 @@ public class TaskInstance {
 
     public void setTask(Task task) {
         this.task = task;
-    }
-
-    @Override
-    public String toString() {
-        return "TaskInstance{" +
-                "taskInstanceId=" + taskInstanceId +
-                ", comments='" + comments + '\'' +
-                ", attachments='" + attachments + '\'' +
-                ", status='" + status + '\'' +
-                ", performedBy=" + performedBy +
-                ", workflowInstance=" + workflowInstance +
-                ", task=" + task +
-                '}';
     }
 }

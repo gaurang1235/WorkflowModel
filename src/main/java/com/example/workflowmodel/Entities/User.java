@@ -16,24 +16,28 @@ public class User {
 
     private String role;
 
+    @OneToMany(mappedBy = "createdBy")
+    @JsonIgnore
+    private List<WorkflowInstance> workflowInstances;
+
     @OneToMany(mappedBy = "userAuthorized")
     @JsonIgnore
     private List<Task> tasksAuthorized;
 
-    @ManyToMany(mappedBy = "performedBy")
+    @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private List<TaskInstance> taskInstancesPerformedList;
+    private List<TaskInstancePerformedBy> taskInstancePerformedList;
 
 
     public User() {
     }
 
-    public User(int userId, String name, String role, List<Task> tasksAuthorized, List<TaskInstance> taskInstancesPerformedList) {
+    public User(int userId, String name, String role, List<Task> tasksAuthorized, List<TaskInstancePerformedBy> taskInstancePerformedList) {
         this.userId = userId;
         this.name = name;
         this.role = role;
         this.tasksAuthorized = tasksAuthorized;
-        this.taskInstancesPerformedList = taskInstancesPerformedList;
+        this.taskInstancePerformedList = taskInstancePerformedList;
     }
 
     public int getUserId() {
@@ -64,26 +68,15 @@ public class User {
         return tasksAuthorized;
     }
 
-    public void setTasksAuthorized(List<Task> taskAuthorized) {
-        this.tasksAuthorized = taskAuthorized;
+    public void setTasksAuthorized(List<Task> tasksAuthorized) {
+        this.tasksAuthorized = tasksAuthorized;
     }
 
-    public List<TaskInstance> getTaskInstancesPerformedList() {
-        return taskInstancesPerformedList;
+    public List<TaskInstancePerformedBy> getTaskInstancePerformedList() {
+        return taskInstancePerformedList;
     }
 
-    public void setTaskInstancesPerformedList(List<TaskInstance> taskInstancesPerformedList) {
-        this.taskInstancesPerformedList = taskInstancesPerformedList;
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "userId=" + userId +
-                ", name='" + name + '\'' +
-                ", role='" + role + '\'' +
-                ", tasksAuthorized=" + tasksAuthorized +
-                ", taskInstancesPerformedList=" + taskInstancesPerformedList +
-                '}';
+    public void setTaskInstancePerformedList(List<TaskInstancePerformedBy> taskInstancePerformedList) {
+        this.taskInstancePerformedList = taskInstancePerformedList;
     }
 }

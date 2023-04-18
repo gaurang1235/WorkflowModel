@@ -1,6 +1,8 @@
 package com.example.workflowmodel.Controllers;
 
+import com.example.workflowmodel.DAO.TaskInstanceDao;
 import com.example.workflowmodel.Entities.Action;
+import com.example.workflowmodel.Entities.TaskInstance;
 import com.example.workflowmodel.Services.ActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +39,12 @@ public class ActionController {
             return ResponseEntity.status(500).build();
         }
     }
+
+//    @PostMapping("/performAction/{taskInstanceId}/{actionId}/{userId}")
+//    public ResponseEntity<TaskInstance> performAction(@PathVariable int taskInstanceId, @PathVariable int actionId, @PathVariable int userId){
+//        try{
+//            TaskInstance =
+//        }
+//    }
 
 }

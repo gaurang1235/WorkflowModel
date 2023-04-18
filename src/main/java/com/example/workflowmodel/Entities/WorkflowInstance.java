@@ -18,6 +18,9 @@ public class WorkflowInstance {
     @ManyToOne
     private Workflow workflow;
 
+    @ManyToOne
+    private User createdBy;
+
     @OneToMany(mappedBy = "workflowInstance")
     @JsonIgnore
     private List<TaskInstance> taskInstanceList;
@@ -25,11 +28,12 @@ public class WorkflowInstance {
     public WorkflowInstance() {
     }
 
-    public WorkflowInstance(int workflowInstanceId, String status, String description, Workflow workflow, List<TaskInstance> taskInstanceList) {
+    public WorkflowInstance(int workflowInstanceId, String status, String description, Workflow workflow, User createdBy, List<TaskInstance> taskInstanceList) {
         this.workflowInstanceId = workflowInstanceId;
         this.status = status;
         this.description = description;
         this.workflow = workflow;
+        this.createdBy = createdBy;
         this.taskInstanceList = taskInstanceList;
     }
 
@@ -65,6 +69,14 @@ public class WorkflowInstance {
         this.workflow = workflow;
     }
 
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
     public List<TaskInstance> getTaskInstanceList() {
         return taskInstanceList;
     }
@@ -80,6 +92,7 @@ public class WorkflowInstance {
                 ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
                 ", workflow=" + workflow +
+                ", createdBy=" + createdBy +
                 ", taskInstanceList=" + taskInstanceList +
                 '}';
     }
