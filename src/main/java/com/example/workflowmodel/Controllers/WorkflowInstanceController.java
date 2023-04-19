@@ -33,4 +33,15 @@ public class WorkflowInstanceController {
         }
     }
 
+    @GetMapping("/getWorkflowInstance/{workflowInstanceId}")
+    public ResponseEntity<WorkflowInstance> getWorkflowInstance(@PathVariable int workflowInstanceId){
+        try{
+            WorkflowInstance workflowInstance = workflowInstanceService.getWorkflowInstance(workflowInstanceId);
+
+            return ResponseEntity.of(Optional.of(workflowInstance));
+        }catch (Exception e){
+            return ResponseEntity.status(500).build();
+        }
+    }
+
 }

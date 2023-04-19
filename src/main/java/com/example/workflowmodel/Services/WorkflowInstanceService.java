@@ -45,4 +45,15 @@ public class WorkflowInstanceService {
             throw new RuntimeException();
         }
     }
+
+    public WorkflowInstance getWorkflowInstance(int workflowInstanceId){
+        try{
+            WorkflowInstance workflowInstance = workflowInstanceDao.findByWorkflowInstanceId(workflowInstanceId);
+
+            return workflowInstance;
+        }catch (Exception e){
+            System.out.println("Fetching workflow error");
+            throw new RuntimeException();
+        }
+    }
 }

@@ -113,4 +113,17 @@ public class TaskInstanceService {
         }
     }
 
+    public List<TaskInstance> fetchTaskInstanceForWorkflowInstance(int workflowInstanceId){
+        try{
+            WorkflowInstance workflowInstance = workflowInstanceDao.findByWorkflowInstanceId(workflowInstanceId);
+
+            List<TaskInstance> taskInstanceList = taskInstanceDao.findByWorkflowInstance(workflowInstance);
+
+            return taskInstanceList;
+        }catch (Exception e) {
+            System.out.println("fetching taskinstance for workflowInstance error");
+            throw new RuntimeException();
+        }
+    }
+
 }

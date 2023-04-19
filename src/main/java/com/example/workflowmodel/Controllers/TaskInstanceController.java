@@ -32,4 +32,16 @@ public class TaskInstanceController {
         }
     }
 
+    @GetMapping("/taskInstances/{workflowInstanceId}")
+    public ResponseEntity<List<TaskInstance>> taskInstancesByWorkflow(@PathVariable int workflowInstanceId){
+        try{
+            List<TaskInstance> taskInstanceList = taskInstanceService.fetchTaskInstanceForWorkflowInstance(workflowInstanceId);
+
+            return ResponseEntity.of(Optional.of(taskInstanceList));
+        }catch (Exception e)
+        {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
 }
