@@ -92,7 +92,7 @@ public class TaskService {
 
     public List<Task> findAllFirstTasks(){
         try{
-            List<Task> taskList = taskDao.findAllByPrevActionIsNull();
+            List<Task> taskList = taskDao.findAllByPrevActions_Empty();
 
             return taskList;
         }catch (Exception e){
@@ -105,6 +105,10 @@ public class TaskService {
 
         try{
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
+
+            workflowDao.save(workflow);
+
+            System.out.println(workflow.getTasksList().size());
 
             List<Task> taskList = workflow.getTasksList();
 

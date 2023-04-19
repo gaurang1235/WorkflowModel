@@ -23,9 +23,9 @@ public class Task {
 
     private String role;
 
-    @OneToOne(mappedBy = "nextTask")
+    @OneToMany(mappedBy = "nextTask")
     @JsonIgnore
-    private Action prevAction;
+    private List<Action> prevActions;
 
     @OneToMany(mappedBy = "task")
     @JsonIgnore
@@ -39,17 +39,16 @@ public class Task {
     public Task() {
     }
 
-    public Task(int taskId, String description, Workflow workflow, User userAuthorized, String role, Action prevAction, List<Action> actionsList, List<TaskInstance> taskInstanceList) {
+    public Task(int taskId, String description, Workflow workflow, User userAuthorized, String role, List<Action> prevActions, List<Action> actionsList, List<TaskInstance> taskInstanceList) {
         this.taskId = taskId;
         this.description = description;
         this.workflow = workflow;
         this.userAuthorized = userAuthorized;
         this.role = role;
-        this.prevAction = prevAction;
+        this.prevActions = prevActions;
         this.actionsList = actionsList;
         this.taskInstanceList = taskInstanceList;
     }
-
 
     public int getTaskId() {
         return taskId;
@@ -91,20 +90,20 @@ public class Task {
         this.role = role;
     }
 
-    public Action getPrevAction() {
-        return prevAction;
+    public List<Action> getPrevActions() {
+        return prevActions;
     }
 
-    public void setPrevAction(Action prevAction) {
-        this.prevAction = prevAction;
+    public void setPrevActions(List<Action> prevActions) {
+        this.prevActions = prevActions;
     }
 
     public List<Action> getActionsList() {
         return actionsList;
     }
 
-    public void setActionsList(List<Action> actionList) {
-        this.actionsList = actionList;
+    public void setActionsList(List<Action> actionsList) {
+        this.actionsList = actionsList;
     }
 
     public List<TaskInstance> getTaskInstanceList() {
@@ -117,13 +116,13 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Tasks{" +
+        return "Task{" +
                 "taskId=" + taskId +
                 ", description='" + description + '\'' +
                 ", workflow=" + workflow +
                 ", userAuthorized=" + userAuthorized +
                 ", role='" + role + '\'' +
-                ", prevAction=" + prevAction +
+                ", prevActions=" + prevActions +
                 ", actionsList=" + actionsList +
                 ", taskInstanceList=" + taskInstanceList +
                 '}';

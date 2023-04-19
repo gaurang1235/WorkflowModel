@@ -81,7 +81,7 @@ public class WorkflowService {
                 throw new RuntimeException();
             }
 
-            List<Task> firstTasks = taskDao.findAllByPrevActionIsNull();
+            List<Task> firstTasks = taskDao.findAllByPrevActions_Empty();
 
 
             HashSet<Workflow> workflowList = new HashSet<>();

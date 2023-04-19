@@ -49,7 +49,7 @@ public class TaskInstanceService {
             Task task = new Task();
 
             for(int i =0;i<taskList.size();i++){
-                if(taskList.get(i).getPrevAction()==null) {
+                if(taskList.get(i).getPrevActions().size()==0) {
                     task = taskList.get(i);
                     break;
                 }

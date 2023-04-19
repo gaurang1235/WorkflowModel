@@ -14,7 +14,7 @@ public class Action {
 
     private String name;
 
-    @OneToOne
+    @ManyToOne
     private Task nextTask;
 
     public Action() {
