@@ -1,16 +1,11 @@
 package com.example.workflowmodel.Services;
 
-import com.example.workflowmodel.DAO.ActionDao;
-import com.example.workflowmodel.DAO.TaskDao;
-import com.example.workflowmodel.DAO.TaskInstanceDao;
-import com.example.workflowmodel.DAO.UserDao;
-import com.example.workflowmodel.Entities.Action;
-import com.example.workflowmodel.Entities.Task;
-import com.example.workflowmodel.Entities.TaskInstance;
-import com.example.workflowmodel.Entities.User;
+import com.example.workflowmodel.DAO.*;
+import com.example.workflowmodel.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +22,12 @@ public class ActionService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private TaskInstancePerformedByDao taskInstancePerformedByDao;
+
+    @Autowired
+    private WorkflowInstanceDao workflowInstanceDao;
 
     public Action addAction(String name, int taskId, int nextTaskId){
 
@@ -64,17 +65,96 @@ public class ActionService {
         }
     }
 
-//    public TaskInstance performAction(int userId, int taskInstanceId, int actionId, String comments, String attachments){
-//        try{
-//            TaskInstance taskInstance = taskInstanceDao.findByTaskInstanceId(taskInstanceId);
-//
-//            User user = userDao.findByUserId(userId);
-//
-//
-//
-//
-//
-//
-//        }
-//    }
+    public void performAction(int userId, int taskInstanceId, int actionId, String comments){
+        try{
+            TaskInstance taskInstance = taskInstanceDao.findByTaskInstanceId(taskInstanceId);
+
+            WorkflowInstance workflowInstanceHere = taskInstance.getWorkflowInstance();
+
+            workflowInstanceHere.setStatus("InProgress");
+
+            workflowInstanceDao.save(workflowInstanceHere);
+
+            User user = userDao.findByUserId(userId);
+
+            TaskInstancePerformedBy taskInstancePerformedBy = taskInstancePerformedByDao.findByTaskInstanceAndUser(taskInstance, user);
+
+            taskInstancePerformedBy.setStatus("Completed");
+            taskInstancePerformedBy.setComments(comments);
+
+            taskInstancePerformedByDao.save(taskInstancePerformedBy);
+
+            taskInstance.setStatus("InProgress");
+
+            if(!taskInstance.getTask().getAnyAll()){
+                List<TaskInstancePerformedBy> pending = taskInstancePerformedByDao.findByTaskInstanceAndStatus(taskInstance, "Pending");
+
+                pending.forEach(t -> {
+                    t.setStatus("Done By Others");
+                    t.setComments("NULL");
+
+                    taskInstancePerformedByDao.save(t);
+                });
+            }
+
+            List<TaskInstancePerformedBy> taskInstancePerformedByList = taskInstancePerformedByDao.findByTaskInstanceAndStatus(taskInstance, "Pending");
+
+            if(taskInstancePerformedByList==null || taskInstancePerformedByList.size()==0){
+
+                taskInstance.setStatus("Completed");
+
+                taskInstanceDao.save(taskInstance);
+
+                Action action = actionDao.findByActionId(actionId);
+
+                Task newTask = action.getNextTask();
+
+                if(newTask.getActionsList()==null || newTask.getActionsList().size()==0){
+                    WorkflowInstance workflowInstance = taskInstance.getWorkflowInstance();
+
+                    workflowInstance.setStatus("Completed");
+
+                    taskInstanceDao.save(taskInstance);
+
+                    workflowInstanceDao.save(workflowInstance);
+
+                    return;
+                }
+
+                //System.out.println(newTask.getRole());
+
+                TaskInstance newTaskInstance = new TaskInstance();
+
+                newTaskInstance.setStatus("Pending");
+                newTaskInstance.setWorkflowInstance(taskInstance.getWorkflowInstance());
+                newTaskInstance.setTask(newTask);
+
+                List<User> performedByUserList = new ArrayList<>();
+
+                if(newTask.getRole()!=null)
+                    performedByUserList.addAll(userDao.findByRole(newTask.getRole()));
+                else
+                    performedByUserList.add(newTask.getUserAuthorized());
+
+                System.out.println(performedByUserList.size());
+
+                TaskInstance finalTaskInstance = newTaskInstance;
+                newTaskInstance.setTaskInstancePerformedByList(performedByUserList.stream().map(user1 -> {
+                    TaskInstancePerformedBy taskInstancePerformedBy1 = new TaskInstancePerformedBy();
+                    taskInstancePerformedBy1.setUser(user1);
+                    taskInstancePerformedBy1.setTaskInstance(finalTaskInstance);
+                    taskInstancePerformedBy1.setStatus("Pending");
+                    return taskInstancePerformedBy1;
+                }).toList());
+
+                taskInstanceDao.save(newTaskInstance);
+            }
+
+            taskInstanceDao.save(taskInstance);
+
+        }catch (Exception e){
+            System.out.println("Action performed created error");
+            throw new RuntimeException();
+        }
+    }
 }

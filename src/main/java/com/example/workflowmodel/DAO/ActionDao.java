@@ -10,4 +10,6 @@ public interface ActionDao extends JpaRepository<Action, Integer> {
 
     List<Action> findAllByTask(Task task);
 
+    Action findByActionId(int actionId);
+
 }

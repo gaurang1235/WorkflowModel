@@ -42,15 +42,15 @@ public class ActionController {
     }
 
 
-//    @PostMapping("/performAction/{userId}")
-//    public ResponseEntity<TaskInstance> performAction(@PathVariable int userId, @RequestParam("taskInstanceId") int taskInstanceId, @RequestParam("actionId") int actionId, @RequestParam("comments") String comments, @RequestParam("attachments") String attachments){
-//        try{
-//            TaskInstance taskInstance = actionService.performAction(userId, taskInstanceId, actionId, comments, attachments);
-//
-//            return ResponseEntity.ok(taskInstance);
-//        }catch (Exception e){
-//            return ResponseEntity.status(500).build();
-//        }
-//    }
+    @PostMapping("/performAction/{userId}")
+    public ResponseEntity<?> performAction(@PathVariable int userId, @RequestParam("taskInstanceId") int taskInstanceId, @RequestParam("actionId") int actionId, @RequestParam("comments") String comments){
+        try{
+            actionService.performAction(userId, taskInstanceId, actionId, comments);
+
+            return ResponseEntity.status(200).build();
+        }catch (Exception e){
+            return ResponseEntity.status(500).build();
+        }
+    }
 
 }
