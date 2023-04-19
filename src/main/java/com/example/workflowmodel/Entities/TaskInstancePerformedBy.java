@@ -24,14 +24,25 @@ public class TaskInstancePerformedBy {
 
     private String status;
 
+    private String comments;
+
     public TaskInstancePerformedBy() {
     }
 
-    public TaskInstancePerformedBy(TaskInstancePerformedId id, TaskInstance taskInstance, User user, String status) {
+    public TaskInstancePerformedBy(TaskInstancePerformedId id, TaskInstance taskInstance, User user, String status, String comments) {
         this.id = id;
         this.taskInstance = taskInstance;
         this.user = user;
         this.status = status;
+        this.comments = comments;
+    }
+
+    public TaskInstancePerformedId getId() {
+        return id;
+    }
+
+    public void setId(TaskInstancePerformedId id) {
+        this.id = id;
     }
 
     public TaskInstance getTaskInstance() {
@@ -58,21 +69,11 @@ public class TaskInstancePerformedBy {
         this.status = status;
     }
 
-    public TaskInstancePerformedId getId() {
-        return id;
+    public String getComments() {
+        return comments;
     }
 
-    public void setId(TaskInstancePerformedId id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "TaskInstancePerformedBy{" +
-                "id=" + id +
-                ", taskInstance=" + taskInstance +
-                ", user=" + user +
-                ", status='" + status + '\'' +
-                '}';
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }

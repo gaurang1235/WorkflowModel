@@ -39,7 +39,6 @@ public class TaskInstanceService {
             TaskInstance taskInstance = new TaskInstance();
 
             taskInstance.setWorkflowInstance(workflowInstance);
-            taskInstance.setAnyAll(false);
             taskInstance.setStatus("Pending");
 
             List<Task> taskList = workflowInstance.getWorkflow().getTasksList();
@@ -49,7 +48,7 @@ public class TaskInstanceService {
             Task task = new Task();
 
             for(int i =0;i<taskList.size();i++){
-                if(taskList.get(i).getPrevActions().size()==0) {
+                if(taskList.get(i).getFirst()==true) {
                     task = taskList.get(i);
                     break;
                 }

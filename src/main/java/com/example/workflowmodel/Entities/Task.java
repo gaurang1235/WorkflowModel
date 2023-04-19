@@ -17,6 +17,9 @@ public class Task {
     @ManyToOne
     private Workflow workflow;
 
+    private Boolean anyAll;
+
+    private Boolean isFirst;
 
     @ManyToOne
     private User userAuthorized;
@@ -39,10 +42,12 @@ public class Task {
     public Task() {
     }
 
-    public Task(int taskId, String description, Workflow workflow, User userAuthorized, String role, List<Action> prevActions, List<Action> actionsList, List<TaskInstance> taskInstanceList) {
+    public Task(int taskId, String description, Workflow workflow, Boolean anyAll, Boolean isFirst, User userAuthorized, String role, List<Action> prevActions, List<Action> actionsList, List<TaskInstance> taskInstanceList) {
         this.taskId = taskId;
         this.description = description;
         this.workflow = workflow;
+        this.anyAll = anyAll;
+        this.isFirst = isFirst;
         this.userAuthorized = userAuthorized;
         this.role = role;
         this.prevActions = prevActions;
@@ -72,6 +77,22 @@ public class Task {
 
     public void setWorkflow(Workflow workflow) {
         this.workflow = workflow;
+    }
+
+    public Boolean getAnyAll() {
+        return anyAll;
+    }
+
+    public void setAnyAll(Boolean anyAll) {
+        this.anyAll = anyAll;
+    }
+
+    public Boolean getFirst() {
+        return isFirst;
+    }
+
+    public void setFirst(Boolean first) {
+        isFirst = first;
     }
 
     public User getUserAuthorized() {
@@ -120,6 +141,8 @@ public class Task {
                 "taskId=" + taskId +
                 ", description='" + description + '\'' +
                 ", workflow=" + workflow +
+                ", anyAll=" + anyAll +
+                ", isFirst=" + isFirst +
                 ", userAuthorized=" + userAuthorized +
                 ", role='" + role + '\'' +
                 ", prevActions=" + prevActions +

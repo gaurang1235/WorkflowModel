@@ -32,24 +32,8 @@ public class WorkflowService {
 
         workflow.setName(name);
 
-        Task acceptTask = new Task();
-        Task rejectTask = new Task();
-
         try{
             workflow = workflowDao.save(workflow);
-
-
-            acceptTask.setWorkflow(workflow);
-            rejectTask.setWorkflow(workflow);
-
-            acceptTask.setDescription("Accepted");
-            acceptTask.setRole("");
-            rejectTask.setDescription("Rejected");
-            rejectTask.setRole("");
-
-
-            taskDao.save(acceptTask);
-            taskDao.save(rejectTask);
         }catch (Exception e){
             System.out.println("creating workflow error");
             throw new RuntimeException();
@@ -81,22 +65,18 @@ public class WorkflowService {
                 throw new RuntimeException();
             }
 
-            List<Task> firstTasks = taskDao.findAllByPrevActions_Empty();
+            List<Task> firstTasks = taskDao.findByIsFirst(true);
 
 
-            HashSet<Workflow> workflowList = new HashSet<>();
+            List<Workflow> workflowList = new ArrayList<>();
 
 
-            System.out.println(firstTasks.size());
+            //System.out.println(firstTasks.size());
 
             firstTasks.forEach(firstTask->{if((firstTask.getRole()!=null && firstTask.getRole().equals(user.getRole())) || (firstTask.getUserAuthorized()!=null && firstTask.getUserAuthorized().equals(user))) workflowList.add(firstTask.getWorkflow());});
 
 
-            List<Workflow> returnWorkflowList = new ArrayList<>();
-
-            workflowList.forEach(workflow -> {returnWorkflowList.add(workflow);});
-
-            return returnWorkflowList;
+            return workflowList;
         }catch (Exception e){
             System.out.println("finding workflow for user error");
             throw new RuntimeException();

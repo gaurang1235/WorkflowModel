@@ -2,8 +2,12 @@ package com.example.workflowmodel.Services;
 
 import com.example.workflowmodel.DAO.ActionDao;
 import com.example.workflowmodel.DAO.TaskDao;
+import com.example.workflowmodel.DAO.TaskInstanceDao;
+import com.example.workflowmodel.DAO.UserDao;
 import com.example.workflowmodel.Entities.Action;
 import com.example.workflowmodel.Entities.Task;
+import com.example.workflowmodel.Entities.TaskInstance;
+import com.example.workflowmodel.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,12 @@ public class ActionService {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private TaskInstanceDao taskInstanceDao;
+
+    @Autowired
+    private UserDao userDao;
 
     public Action addAction(String name, int taskId, int nextTaskId){
 
@@ -53,4 +63,18 @@ public class ActionService {
             throw new RuntimeException();
         }
     }
+
+//    public TaskInstance performAction(int userId, int taskInstanceId, int actionId, String comments, String attachments){
+//        try{
+//            TaskInstance taskInstance = taskInstanceDao.findByTaskInstanceId(taskInstanceId);
+//
+//            User user = userDao.findByUserId(userId);
+//
+//
+//
+//
+//
+//
+//        }
+//    }
 }

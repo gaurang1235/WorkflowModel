@@ -21,9 +21,9 @@ public class WorkflowInstanceController {
     private TaskInstanceService taskInstanceService;
 
     @PostMapping("/addWorkflowInstance/{userId}/{workflowId}")
-    public ResponseEntity<WorkflowInstance> addWorkflow(@PathVariable int userId, @PathVariable int workflowId, @RequestParam("description") String description){
+    public ResponseEntity<WorkflowInstance> addWorkflowInstance(@PathVariable int userId, @PathVariable int workflowId, @RequestParam("description") String description, @RequestParam("attachments") String attachments){
         try{
-            WorkflowInstance workflowInstance = workflowInstanceService.addWorkflowInstance(workflowId, description, userId);
+            WorkflowInstance workflowInstance = workflowInstanceService.addWorkflowInstance(workflowId, description, userId, attachments);
 
             TaskInstance taskInstance = taskInstanceService.addFirstTaskInstance(workflowInstance.getWorkflowInstanceId());
 

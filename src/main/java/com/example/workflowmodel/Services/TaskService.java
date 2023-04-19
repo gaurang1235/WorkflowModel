@@ -24,7 +24,7 @@ public class TaskService {
     private UserDao userDao;
 
 
-    public Task addTaskUsingRole(String description, int workflowId, String role){
+    public Task addTaskUsingRole(String description, int workflowId, String role, Boolean anyAll, Boolean isFirst){
 
         try{
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
@@ -39,6 +39,8 @@ public class TaskService {
             task.setDescription(description);
             task.setRole(role);
             task.setWorkflow(workflow);
+            task.setAnyAll(anyAll);
+            task.setFirst(isFirst);
 
             task = taskDao.save(task);
 
@@ -49,7 +51,7 @@ public class TaskService {
         }
     }
 
-    public Task addTaskUsingUser(String description, int workflowId, int userId){
+    public Task addTaskUsingUser(String description, int workflowId, int userId, Boolean anyAll, Boolean isFirst){
 
         try{
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
@@ -65,6 +67,8 @@ public class TaskService {
             task.setDescription(description);
             task.setWorkflow(workflow);
             task.setUserAuthorized(user);
+            task.setAnyAll(anyAll);
+            task.setFirst(isFirst);
 
             task = taskDao.save(task);
 
@@ -90,25 +94,12 @@ public class TaskService {
     }
 
 
-    public List<Task> findAllFirstTasks(){
-        try{
-            List<Task> taskList = taskDao.findAllByPrevActions_Empty();
-
-            return taskList;
-        }catch (Exception e){
-            System.out.println("searching first all tasks error");
-            throw new RuntimeException();
-        }
-    }
-
     public List<Task> fetchAllTaskForWorkflow(int workflowId){
 
         try{
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
 
-            workflowDao.save(workflow);
-
-            System.out.println(workflow.getTasksList().size());
+            //System.out.println(workflow.getTasksList().size());
 
             List<Task> taskList = workflow.getTasksList();
 

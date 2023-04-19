@@ -15,6 +15,8 @@ public class WorkflowInstance {
 
     private String description;
 
+    private String attachments;
+
     @ManyToOne
     private Workflow workflow;
 
@@ -28,10 +30,11 @@ public class WorkflowInstance {
     public WorkflowInstance() {
     }
 
-    public WorkflowInstance(int workflowInstanceId, String status, String description, Workflow workflow, User createdBy, List<TaskInstance> taskInstanceList) {
+    public WorkflowInstance(int workflowInstanceId, String status, String description, String attachments, Workflow workflow, User createdBy, List<TaskInstance> taskInstanceList) {
         this.workflowInstanceId = workflowInstanceId;
         this.status = status;
         this.description = description;
+        this.attachments = attachments;
         this.workflow = workflow;
         this.createdBy = createdBy;
         this.taskInstanceList = taskInstanceList;
@@ -59,6 +62,14 @@ public class WorkflowInstance {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(String attachments) {
+        this.attachments = attachments;
     }
 
     public Workflow getWorkflow() {
@@ -91,6 +102,7 @@ public class WorkflowInstance {
                 "workflowInstanceId=" + workflowInstanceId +
                 ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
+                ", attachments='" + attachments + '\'' +
                 ", workflow=" + workflow +
                 ", createdBy=" + createdBy +
                 ", taskInstanceList=" + taskInstanceList +

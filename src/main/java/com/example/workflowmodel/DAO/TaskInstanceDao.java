@@ -9,4 +9,6 @@ public interface TaskInstanceDao extends JpaRepository<TaskInstance, Integer> {
 
     public List<TaskInstance> findAllByStatusIs(String status);
 
+    public TaskInstance findByTaskInstanceId(int taskInstanceId);
+
 }

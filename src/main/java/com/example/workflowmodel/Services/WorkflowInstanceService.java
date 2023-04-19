@@ -23,7 +23,7 @@ public class WorkflowInstanceService {
 
 
 
-    public WorkflowInstance addWorkflowInstance(int workflowId, String description, int userId){
+    public WorkflowInstance addWorkflowInstance(int workflowId, String description, int userId, String attachments){
 
         try {
             WorkflowInstance workflowInstance = new WorkflowInstance();
@@ -35,6 +35,7 @@ public class WorkflowInstanceService {
             workflowInstance.setStatus("pending");
             workflowInstance.setDescription(description);
             workflowInstance.setCreatedBy(user);
+            workflowInstance.setAttachments(attachments);
 
 
             workflowInstance = workflowInstanceDao.save(workflowInstance);
