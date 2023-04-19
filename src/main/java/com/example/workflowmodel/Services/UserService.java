@@ -5,23 +5,24 @@ import com.example.workflowmodel.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
     @Autowired
     private UserDao userDao;
 
-    public User findUser(int userId){
-        User user;
+    public List<User> getAllUsers(){
 
         try {
-             user = userDao.findByUserId(userId);
+             List<User> userList = userDao.findAll();
+
+             return userList;
         }catch (Exception e){
-            System.out.println("searching user error");
+            System.out.println("fetching users list error");
             throw new RuntimeException();
         }
-
-        return user;
     }
 
 }
