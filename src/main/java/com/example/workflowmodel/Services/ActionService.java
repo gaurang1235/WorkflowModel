@@ -116,6 +116,15 @@ public class ActionService {
 
                     taskInstanceDao.save(taskInstance);
 
+                    TaskInstance newTaskInstance = new TaskInstance();
+
+                    newTaskInstance.setStatus("Completed");
+                    newTaskInstance.setWorkflowInstance(workflowInstance);
+                    newTaskInstance.setTask(newTask);
+
+
+                    taskInstanceDao.save(newTaskInstance);
+
                     workflowInstanceDao.save(workflowInstance);
 
                     return;
