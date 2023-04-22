@@ -24,5 +24,15 @@ public class UserService {
             throw new RuntimeException();
         }
     }
+    public User getUser(int userId){
+        try {
+            User singleUser = userDao.findByUserId(userId);
+            return singleUser;
+        }catch (Exception e){
+            System.out.println("don't know what the problem is");
+            throw new RuntimeException();
+        }
+    }
+
 
 }
