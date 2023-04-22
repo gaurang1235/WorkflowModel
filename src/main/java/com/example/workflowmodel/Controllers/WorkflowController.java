@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000/")
 @RequestMapping("/workflow")
 public class WorkflowController {
 
