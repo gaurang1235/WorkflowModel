@@ -10,6 +10,6 @@ public interface TaskDao extends JpaRepository<Task, Integer> {
 
     public Task findByTaskId(int taskId);
 
-    public List<Task> findByIsFirst(Boolean isFirst);
+    public List<Task> findByPosition(String position);
 
 }

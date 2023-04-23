@@ -29,7 +29,7 @@ public class UserService {
             User singleUser = userDao.findByUserId(userId);
             return singleUser;
         }catch (Exception e){
-            System.out.println("don't know what the problem is");
+            System.out.println("User not found");
             throw new RuntimeException();
         }
     }

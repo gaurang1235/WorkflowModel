@@ -65,7 +65,7 @@ public class WorkflowService {
                 throw new RuntimeException();
             }
 
-            List<Task> firstTasks = taskDao.findByIsFirst(true);
+            List<Task> firstTasks = taskDao.findByPosition("first");
 
 
             List<Workflow> workflowList = new ArrayList<>();

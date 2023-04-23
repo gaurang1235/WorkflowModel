@@ -20,11 +20,11 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping("/addTaskUsingRole/{workflowId}")
-    public ResponseEntity<Task> addTaskUsingRole(@RequestParam("description") String description, @PathVariable int workflowId, @RequestParam("role") String role, @RequestParam("anyAll") Boolean anyAll, @RequestParam("isFirst") Boolean isFirst){
+    public ResponseEntity<Task> addTaskUsingRole(@RequestParam("description") String description, @PathVariable int workflowId, @RequestParam("role") String role, @RequestParam("anyAll") Boolean anyAll, @RequestParam("position") String position){
         Task task;
 
         try{
-            task = taskService.addTaskUsingRole(description, workflowId, role, anyAll, isFirst);
+            task = taskService.addTaskUsingRole(description, workflowId, role, anyAll, position);
         }catch (Exception e){
             return ResponseEntity.status(500).build();
         }
@@ -32,11 +32,11 @@ public class TaskController {
     }
 
     @PostMapping("/addTaskUsingUser/{workflowId}")
-    public ResponseEntity<Task> addTaskUsingUser(@RequestParam("description") String description, @PathVariable int workflowId, @RequestParam("userId") int userId, @RequestParam("anyAll") Boolean anyAll, @RequestParam("isFirst") Boolean isFirst){
+    public ResponseEntity<Task> addTaskUsingUser(@RequestParam("description") String description, @PathVariable int workflowId, @RequestParam("userId") int userId, @RequestParam("anyAll") Boolean anyAll, @RequestParam("position") String position){
         Task task;
 
         try{
-            task = taskService.addTaskUsingUser(description, workflowId, userId, anyAll, isFirst);
+            task = taskService.addTaskUsingUser(description, workflowId, userId, anyAll, position);
         }catch (Exception e){
             return ResponseEntity.status(500).build();
         }

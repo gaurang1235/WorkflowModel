@@ -24,7 +24,7 @@ public class TaskService {
     private UserDao userDao;
 
 
-    public Task addTaskUsingRole(String description, int workflowId, String role, Boolean anyAll, Boolean isFirst){
+    public Task addTaskUsingRole(String description, int workflowId, String role, Boolean anyAll, String position){
 
         try{
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
@@ -40,7 +40,7 @@ public class TaskService {
             task.setRole(role);
             task.setWorkflow(workflow);
             task.setAnyAll(anyAll);
-            task.setFirst(isFirst);
+            task.setPosition(position);
 
             task = taskDao.save(task);
 
@@ -51,7 +51,7 @@ public class TaskService {
         }
     }
 
-    public Task addTaskUsingUser(String description, int workflowId, int userId, Boolean anyAll, Boolean isFirst){
+    public Task addTaskUsingUser(String description, int workflowId, int userId, Boolean anyAll, String position){
 
         try{
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
@@ -68,7 +68,7 @@ public class TaskService {
             task.setWorkflow(workflow);
             task.setUserAuthorized(user);
             task.setAnyAll(anyAll);
-            task.setFirst(isFirst);
+            task.setPosition(position);
 
             task = taskDao.save(task);
 

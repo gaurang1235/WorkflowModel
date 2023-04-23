@@ -48,7 +48,7 @@ public class TaskInstanceService {
             Task task = new Task();
 
             for(int i =0;i<taskList.size();i++){
-                if(taskList.get(i).getFirst()==true) {
+                if(taskList.get(i).getPosition().equals("first")) {
                     task = taskList.get(i);
                     break;
                 }
