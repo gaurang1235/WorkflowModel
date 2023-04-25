@@ -35,4 +35,17 @@ public class UserService {
     }
 
 
+    public User addUser(String name, String role) {
+        try {
+            User newUser = new User();
+
+            newUser.setName(name);
+            newUser.setRole(role);
+
+            return newUser;
+        }catch (Exception e){
+            System.out.println("User create error");
+            throw new RuntimeException();
+        }
+    }
 }

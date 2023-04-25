@@ -36,6 +36,16 @@ public class UserController {
         }catch (Exception e){
             return ResponseEntity.status(500).build();
         }
+    }
 
+    @PostMapping("/addUser")
+    public ResponseEntity<User> addUser(@RequestParam("name") String name, @RequestParam("role") String role){
+        try{
+            User user = userService.addUser(name, role);
+
+            return ResponseEntity.of(Optional.of(user));
+        }catch (Exception e){
+            return ResponseEntity.status(500).build();
+        }
     }
 }
