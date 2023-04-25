@@ -9,6 +9,8 @@ import com.example.workflowmodel.Entities.WorkflowInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WorkflowInstanceService {
 
@@ -53,6 +55,19 @@ public class WorkflowInstanceService {
             return workflowInstance;
         }catch (Exception e){
             System.out.println("Fetching workflow error");
+            throw new RuntimeException();
+        }
+    }
+
+    public List<WorkflowInstance> getWorkflowInstanceListByUser(int userId) {
+        try{
+            User user = userDao.findByUserId(userId);
+
+            List<WorkflowInstance> workflowInstanceList = workflowInstanceDao.findAllByCreatedBy(user);
+
+            return workflowInstanceList;
+        }catch (Exception e){
+            System.out.println("fetching workflow instances by user error");
             throw new RuntimeException();
         }
     }

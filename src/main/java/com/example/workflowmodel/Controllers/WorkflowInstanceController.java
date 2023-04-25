@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,6 +41,18 @@ public class WorkflowInstanceController {
             WorkflowInstance workflowInstance = workflowInstanceService.getWorkflowInstance(workflowInstanceId);
 
             return ResponseEntity.of(Optional.of(workflowInstance));
+        }catch (Exception e){
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/getWorkflowInstances/{userId}")
+    public ResponseEntity<List<WorkflowInstance>> getWorkflowInstancesListbyUser(@PathVariable int userId)
+    {
+        try{
+            List<WorkflowInstance> workflowInstanceList = workflowInstanceService.getWorkflowInstanceListByUser(userId);
+
+            return ResponseEntity.of(Optional.of(workflowInstanceList));
         }catch (Exception e){
             return ResponseEntity.status(500).build();
         }
