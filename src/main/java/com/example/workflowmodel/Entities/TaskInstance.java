@@ -15,7 +15,6 @@ public class TaskInstance {
     private String status;
 
     @OneToMany(mappedBy = "taskInstance", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<TaskInstancePerformedBy> taskInstancePerformedByList;
 
     @ManyToOne

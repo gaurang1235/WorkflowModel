@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -42,17 +40,17 @@ public class WorkflowService {
         return workflow;
     }
 
-    public Workflow loadWorkflow(int id){
-        Workflow workflow;
-        try {
-            workflow = workflowDao.findByWorkflowId(id);
-        }catch (Exception e){
-            System.out.println("Workflow search error");
-            throw new RuntimeException();
-        }
-
-        return workflow;
-    }
+//    public Workflow loadWorkflow(int id){
+//        Workflow workflow;
+//        try {
+//            workflow = workflowDao.findByWorkflowId(id);
+//        }catch (Exception e){
+//            System.out.println("Workflow search error");
+//            throw new RuntimeException();
+//        }
+//
+//        return workflow;
+//    }
 
 
     public List<Workflow> findAllWorkflowForUser(int userId){
@@ -70,8 +68,6 @@ public class WorkflowService {
 
             List<Workflow> workflowList = new ArrayList<>();
 
-
-            //System.out.println(firstTasks.size());
 
             firstTasks.forEach(firstTask->{if((firstTask.getRole()!=null && firstTask.getRole().equals(user.getRole())) || (firstTask.getUserAuthorized()!=null && firstTask.getUserAuthorized().equals(user))) workflowList.add(firstTask.getWorkflow());});
 

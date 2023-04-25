@@ -80,26 +80,24 @@ public class TaskService {
     }
 
 
-    public Task getSingleTask(int taskId){
-        Task task;
-
-        try{
-            task = taskDao.findByTaskId(taskId);
-
-            return task;
-        }catch (Exception e){
-            System.out.println("get single task error");
-            throw new RuntimeException();
-        }
-    }
+//    public Task getSingleTask(int taskId){
+//        Task task;
+//
+//        try{
+//            task = taskDao.findByTaskId(taskId);
+//
+//            return task;
+//        }catch (Exception e){
+//            System.out.println("get single task error");
+//            throw new RuntimeException();
+//        }
+//    }
 
 
     public List<Task> fetchAllTaskForWorkflow(int workflowId){
 
         try{
             Workflow workflow = workflowDao.findByWorkflowId(workflowId);
-
-            //System.out.println(workflow.getTasksList().size());
 
             List<Task> taskList = workflow.getTasksList();
 

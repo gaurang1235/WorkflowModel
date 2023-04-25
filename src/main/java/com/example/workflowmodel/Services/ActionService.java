@@ -130,7 +130,6 @@ public class ActionService {
                     return;
                 }
 
-                //System.out.println(newTask.getRole());
 
                 TaskInstance newTaskInstance = new TaskInstance();
 
@@ -145,7 +144,6 @@ public class ActionService {
                 else
                     performedByUserList.add(newTask.getUserAuthorized());
 
-                System.out.println(performedByUserList.size());
 
                 TaskInstance finalTaskInstance = newTaskInstance;
                 newTaskInstance.setTaskInstancePerformedByList(performedByUserList.stream().map(user1 -> {

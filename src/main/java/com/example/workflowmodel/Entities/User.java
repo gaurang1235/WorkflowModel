@@ -32,10 +32,11 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String name, String role, List<Task> tasksAuthorized, List<TaskInstancePerformedBy> taskInstancePerformedList) {
+    public User(int userId, String name, String role, List<WorkflowInstance> workflowInstances, List<Task> tasksAuthorized, List<TaskInstancePerformedBy> taskInstancePerformedList) {
         this.userId = userId;
         this.name = name;
         this.role = role;
+        this.workflowInstances = workflowInstances;
         this.tasksAuthorized = tasksAuthorized;
         this.taskInstancePerformedList = taskInstancePerformedList;
     }
@@ -64,6 +65,14 @@ public class User {
         this.role = role;
     }
 
+    public List<WorkflowInstance> getWorkflowInstances() {
+        return workflowInstances;
+    }
+
+    public void setWorkflowInstances(List<WorkflowInstance> workflowInstances) {
+        this.workflowInstances = workflowInstances;
+    }
+
     public List<Task> getTasksAuthorized() {
         return tasksAuthorized;
     }
@@ -78,5 +87,17 @@ public class User {
 
     public void setTaskInstancePerformedList(List<TaskInstancePerformedBy> taskInstancePerformedList) {
         this.taskInstancePerformedList = taskInstancePerformedList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", workflowInstances=" + workflowInstances +
+                ", tasksAuthorized=" + tasksAuthorized +
+                ", taskInstancePerformedList=" + taskInstancePerformedList +
+                '}';
     }
 }

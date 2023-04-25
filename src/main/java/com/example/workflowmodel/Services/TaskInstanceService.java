@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class TaskInstanceService {
@@ -20,8 +19,6 @@ public class TaskInstanceService {
 
     @Autowired
     private UserDao userDao;
-
-    private TaskDao taskDao;
 
     @Autowired
     private TaskInstancePerformedByDao taskInstancePerformedByDao;
@@ -43,8 +40,6 @@ public class TaskInstanceService {
 
             List<Task> taskList = workflowInstance.getWorkflow().getTasksList();
 
-            //System.out.println(taskList.size());
-
             Task task = new Task();
 
             for(int i =0;i<taskList.size();i++){
@@ -53,15 +48,6 @@ public class TaskInstanceService {
                     break;
                 }
             }
-
-
-
-            //System.out.println("2");
-
-//            if(task.get() ==null){
-//                System.out.println("Error in fetching task for taskInstance");
-//                throw new RuntimeException();
-//            }
 
             taskInstance.setTask(task);
 
